@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terminal Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="terminal">
+    <div class="tabs">
+      <button class="tab active" onclick="showTab('about')">about.sh</button>
+      <button class="tab" onclick="showTab('projects')">projects.sh</button>
+      <button class="tab" onclick="showTab('contact')">contact.sh</button>
+    </div>
+    <div class="content">
+      <div id="about" class="tab-content active">Welcome to my terminal portfolio!</div>
+      <div id="projects" class="tab-content">Here are my projects...</div>
+      <div id="contact" class="tab-content">Get in touch with me here...</div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
