@@ -2,7 +2,7 @@ body {
   margin: 0;
   font-family: monospace;
   background: #1e1e1e;
-  color: #33ff33;
+  color: white;
 }
 
 .terminal {
@@ -29,7 +29,7 @@ body {
 
 .tab.active {
   background: #1e1e1e;
-  color: #33ff33;
+  color: white;
 }
 
 .content {
@@ -42,4 +42,93 @@ body {
 
 .tab-content.active {
   display: block;
+}
+
+/* Interactive terminal styling */
+.terminal-output {
+  margin: 0;
+  font-family: 'Courier New', monospace;
+  white-space: pre-wrap;
+  line-height: 1.2;
+}
+
+.terminal-input-line {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  font-family: 'Courier New', monospace;
+  line-height: 1.2;
+}
+
+.prompt {
+  color: #87ceeb;
+  margin-right: 0.5rem;
+  font-weight: bold;
+}
+
+.terminal-input {
+  background: transparent;
+  border: none;
+  color: #00ff00;
+  font-family: 'Courier New', monospace;
+  font-size: inherit;
+  outline: none;
+  flex: 1;
+  caret-color: transparent;
+  line-height: 1.2;
+  position: relative;
+}
+
+.cursor-block {
+  position: absolute;
+  width: 8px;
+  height: 1.2em;
+  background-color: white;
+  animation: blink 1s infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.terminal-input::placeholder {
+  color: #666;
+}
+
+/* User input line styling */
+.user-input-line {
+  margin: 0;
+  font-family: 'Courier New', monospace;
+  display: flex;
+  align-items: center;
+  line-height: 1.2;
+}
+
+.user-input-line .prompt {
+  color: #87ceeb;
+  font-weight: bold;
+}
+
+.user-input-line .input-text {
+  color: #00ff00;
+  font-weight: bold;
+}
+
+/* Output line styling */
+.output-line {
+  margin: 0;
+  font-family: 'Courier New', monospace;
+  white-space: pre-wrap;
+  line-height: 1.2;
+}
+
+.output-line.error {
+  color: #ff6b6b;
+}
+
+.output-line.success {
+  color: #00ff00;
 }

@@ -10,15 +10,38 @@
   <div class="terminal">
     <div class="tabs">
       <button class="tab active" onclick="showTab('about')">about.sh</button>
+      <button class="tab" onclick="showTab('education')">education.sh</button>
       <button class="tab" onclick="showTab('projects')">projects.sh</button>
       <button class="tab" onclick="showTab('contact')">contact.sh</button>
     </div>
     <div class="content">
-      <div id="about" class="tab-content active">Welcome to my terminal portfolio!</div>
-      <div id="projects" class="tab-content">Here are my projects...</div>
-      <div id="contact" class="tab-content">Get in touch with me here...</div>
+      <div id="about" class="tab-content active">
+        <div class="terminal-output" id="terminal-output-about"></div>
+        <div class="terminal-input-line">
+          <input type="text" id="terminal-input-about" class="terminal-input" placeholder="Type a command..." autocomplete="off">
+        </div>
+      </div>
+      <div id="education" class="tab-content">
+        <div class="terminal-output" id="terminal-output-education"></div>
+        <div class="terminal-input-line">
+          <input type="text" id="terminal-input-education" class="terminal-input" placeholder="Type a command..." autocomplete="off">
+        </div>
+      </div>
+      <div id="projects" class="tab-content">
+        <div class="terminal-output" id="terminal-output-projects"></div>
+        <div class="terminal-input-line">
+          <input type="text" id="terminal-input-projects" class="terminal-input" placeholder="Type a command..." autocomplete="off">
+        </div>
+      </div>
+      <div id="contact" class="tab-content">
+        <div class="terminal-output" id="terminal-output-contact"></div>
+        <div class="terminal-input-line">
+          <input type="text" id="terminal-input-contact" class="terminal-input" placeholder="Type a command..." autocomplete="off">
+        </div>
+      </div>
     </div>
   </div>
+  <script src="content.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
