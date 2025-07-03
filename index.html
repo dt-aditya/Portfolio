@@ -7,39 +7,48 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="terminal">
-    <div class="tabs">
-      <button class="tab active" onclick="showTab('about')">about.sh</button>
-      <button class="tab" onclick="showTab('education')">education.sh</button>
-      <button class="tab" onclick="showTab('projects')">projects.sh</button>
-      <button class="tab" onclick="showTab('contact')">contact.sh</button>
+  <div class="main-container">
+    <div class="left-panel">
+      <div class="left-content">
+        <span class="name">ADITYA MAGARDE</span>
+        <span class="subtitle">Software Engineer, C3.ai</span>
+        <p class="description">I engineer high-performance, scalable systems and streamline workflows to deliver impactful, robust software solutions.</p>
+        <nav class="vertical-nav">
+          <ul>
+            <li class="active" data-command="about">ABOUT</li>
+            <li data-command="experience">EXPERIENCE</li>
+            <li data-command="projects">PROJECTS</li>
+          </ul>
+        </nav>
+      </div>
     </div>
-    <div class="content">
-      <div id="about" class="tab-content active">
-        <div class="terminal-output" id="terminal-output-about"></div>
-        <div class="terminal-input-line">
-          <input type="text" id="terminal-input-about" class="terminal-input" placeholder="Type a command..." autocomplete="off">
-        </div>
-      </div>
-      <div id="education" class="tab-content">
-        <div class="terminal-output" id="terminal-output-education"></div>
-        <div class="terminal-input-line">
-          <input type="text" id="terminal-input-education" class="terminal-input" placeholder="Type a command..." autocomplete="off">
-        </div>
-      </div>
-      <div id="projects" class="tab-content">
-        <div class="terminal-output" id="terminal-output-projects"></div>
-        <div class="terminal-input-line">
-          <input type="text" id="terminal-input-projects" class="terminal-input" placeholder="Type a command..." autocomplete="off">
-        </div>
-      </div>
-      <div id="contact" class="tab-content">
-        <div class="terminal-output" id="terminal-output-contact"></div>
-        <div class="terminal-input-line">
-          <input type="text" id="terminal-input-contact" class="terminal-input" placeholder="Type a command..." autocomplete="off">
+    <div class="right-panel">
+      <div class="terminal">
+        <div class="content">
+          <div id="about" class="tab-content active">
+            <div class="terminal-output" id="terminal-output-about"></div>
+            <!-- The input line will be dynamically created by JavaScript -->
+          </div>
         </div>
       </div>
     </div>
+  </div>
+  <div class="left-footer">
+    <a href="https://github.com/yourusername" class="icon-link" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
+      <img src="icons/github.svg" alt="GitHub" class="icon">
+    </a>
+    <a href="https://linkedin.com/in/yourusername" class="icon-link" aria-label="LinkedIn" target="_blank" rel="noopener noreferrer">
+      <img src="icons/linkedin.svg" alt="LinkedIn" class="icon">
+    </a>
+    <a href="https://instagram.com/yourusername" class="icon-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+      <img src="icons/instagram.svg" alt="Instagram" class="icon">
+    </a>
+    <a href="mailto:your.email@gmail.com" class="icon-link" aria-label="Gmail">
+      <img src="icons/gmail.svg" alt="Gmail" class="icon">
+    </a>
+    <a href="resume.pdf" class="icon-link" aria-label="Download Resume" target="_blank" rel="noopener noreferrer">
+      <img src="icons/cv.svg" alt="Resume" class="icon">
+    </a>
   </div>
   <script src="content.js"></script>
   <script src="script.js"></script>
