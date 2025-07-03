@@ -423,3 +423,7 @@ body {
 .output-line {
   font-size: 0.8rem !important;
 }
+
+.terminal-input:focus {
+  caret-color: transparent;
+}
