@@ -31,16 +31,50 @@ let terminalStates = {
 };
 
 let currentTab = 'about';
+let isTyping = false; // Flag to prevent multiple typing animations
+
+// Typewriter effect function
+function typeCommand(command, tabName, callback) {
+  if (isTyping) return; // Prevent multiple typing animations
+  
+  isTyping = true;
+  
+  // Find the current input element (it's dynamically created)
+  const terminalInput = document.querySelector('.terminal-input-line .terminal-input');
+  if (!terminalInput) {
+    isTyping = false;
+    return;
+  }
+  
+  let currentIndex = 0;
+  const typeSpeed = 25; // milliseconds per character (faster typing)
+  
+  function typeNextChar() {
+    if (currentIndex < command.length) {
+      terminalInput.value = command.substring(0, currentIndex + 1);
+      updateBlockCursor(terminalInput, tabName);
+      currentIndex++;
+      setTimeout(typeNextChar, typeSpeed);
+    } else {
+      // Typing complete, execute command after a short pause
+      setTimeout(() => {
+        isTyping = false;
+        if (callback) callback();
+      }, 300); // Small pause before executing
+    }
+  }
+  
+  // Start typing
+  terminalInput.value = '';
+  typeNextChar();
+}
 
 // Interactive terminal functionality
 document.addEventListener('DOMContentLoaded', function() {
   // Initialize only the 'about' terminal
   initializeTerminal('about');
 
-  // Only auto-load content for the default tab (about)
-  setTimeout(() => {
-    handleCommandInput('cat resume/about.txt', 'about');
-  }, 100);
+  // Terminal starts empty - no auto-loading
 
   // Add event listeners for left nav
   document.querySelectorAll('.vertical-nav li').forEach(item => {
@@ -51,15 +85,20 @@ document.addEventListener('DOMContentLoaded', function() {
       // Always use the 'about' terminal
       let cmd = this.getAttribute('data-command');
       let commandToRun = '';
-      if (cmd === 'about') {
-        commandToRun = 'cat resume/about.txt';
-      } else if (cmd === 'experience') {
+      if (cmd === 'experience') {
+        commandToRun = 'cat resume/experience.txt';
+      } else if (cmd === 'education') {
         commandToRun = 'cat resume/education.txt';
-      } else if (cmd === 'projects') {
-        commandToRun = 'cat resume/projects.txt';
+      } else if (cmd === 'skills') {
+        commandToRun = 'cat resume/skills.txt';
+      } else if (cmd === 'contact') {
+        commandToRun = 'cat resume/contact.txt';
       }
       if (commandToRun) {
-        handleCommandInput(commandToRun, 'about');
+        // Use typewriter effect instead of direct execution
+        typeCommand(commandToRun, 'about', () => {
+          handleCommandInput(commandToRun, 'about');
+        });
       }
       // Focus input
       setTimeout(() => {
@@ -74,63 +113,14 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function initializeTerminal(tabName) {
-  const terminalInput = document.getElementById(`terminal-input-${tabName}`);
   const terminalOutput = document.getElementById(`terminal-output-${tabName}`);
   
-  if (terminalInput && terminalOutput) {
-    // Create block cursor
-    createBlockCursor(terminalInput, tabName);
-    
+  if (terminalOutput) {
     // Show initial console command
     showConsoleCommand(tabName);
     
-    // Handle Enter key press
-    terminalInput.addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') {
-        const input = this.value.trim();
-        this.value = '';
-        
-        if (terminalStates[tabName].isWaitingForPassword) {
-          // Handle password input - just accept Enter, don't show text
-          handlePasswordInput(input, tabName);
-        } else {
-          // Handle command input
-          handleCommandInput(input, tabName);
-        }
-      }
-    });
-    
-    // Handle arrow keys for command history
-    terminalInput.addEventListener('keydown', function(e) {
-      if (e.key === 'ArrowUp') {
-        e.preventDefault();
-        navigateHistory('up', tabName);
-      } else if (e.key === 'ArrowDown') {
-        e.preventDefault();
-        navigateHistory('down', tabName);
-      }
-    });
-    
-    // Prevent typing during password input
-    terminalInput.addEventListener('input', function(e) {
-      if (terminalStates[tabName].isWaitingForPassword) {
-        // Clear any input during password mode
-        this.value = '';
-      } else {
-        // Save current input for history navigation
-        terminalStates[tabName].currentInput = this.value;
-      }
-      updateBlockCursor(this, tabName);
-    });
-    
-    // Update cursor position on click and key events
-    terminalInput.addEventListener('click', function() {
-      updateBlockCursor(this, tabName);
-    });
-    
-    terminalInput.addEventListener('keyup', function() {
-      updateBlockCursor(this, tabName);
-    });
+    // Create initial input line
+    createInputLine();
   }
 }
 
@@ -172,29 +162,35 @@ function updateBlockCursor(inputElement, tabName) {
 
 // Show console command prompt
 function showConsoleCommand(tabName) {
-  const terminalInputLine = document.querySelector(`#${tabName} .terminal-input-line`);
-  if (terminalInputLine) {
-    // Clear any existing prompt
-    const existingPrompt = terminalInputLine.querySelector('.prompt');
-    if (existingPrompt) {
-      existingPrompt.remove();
-    }
-    
-    // Add new prompt
-    const promptSpan = document.createElement('span');
-    promptSpan.className = 'prompt';
-    promptSpan.textContent = 'user@portfolio:~$';
-    terminalInputLine.insertBefore(promptSpan, terminalInputLine.firstChild);
-  }
+  // This function is now handled by createInputLine
+  // The prompt is created when the input line is created
 }
 
 // Utility to check and update terminal centering
 function updateTerminalCentering() {
   const terminalOutput = document.getElementById('terminal-output-about');
   if (!terminalOutput) return;
-  // If content height fits, center; if it overflows, scroll up
-  if (terminalOutput.scrollHeight <= terminalOutput.clientHeight + 2) {
+  
+  // Remove any existing centering spacers first
+  const existingSpacers = terminalOutput.querySelectorAll('.centering-spacer');
+  existingSpacers.forEach(spacer => spacer.remove());
+  
+  // Force a reflow to get accurate measurements
+  terminalOutput.offsetHeight;
+  
+  // Only center if the ONLY child is a .terminal-input-line and it is NOT a password prompt
+  const children = Array.from(terminalOutput.children);
+  const hasOnlyInputLine =
+    children.length === 1 &&
+    children[0].classList.contains('terminal-input-line') &&
+    !children[0].innerHTML.includes('[sudo] password for user:');
+  
+  if (hasOnlyInputLine) {
+    terminalOutput.style.transition = 'none';
     terminalOutput.classList.add('centered');
+    setTimeout(() => {
+      terminalOutput.style.transition = '';
+    }, 50);
   } else {
     terminalOutput.classList.remove('centered');
   }
@@ -202,6 +198,8 @@ function updateTerminalCentering() {
 
 // Call after every output/input change
 function handleCommandInput(command, tabName) {
+  if (isTyping) return; // Prevent execution during typing animation
+  
   addUserInputLine('user@portfolio:~$', command, tabName);
   if (command.trim() !== '') {
     addToHistory(command, tabName);
@@ -222,7 +220,7 @@ function addOutputLine(text, type, tabName) {
   if (terminalOutput) {
     const outputLine = document.createElement('div');
     outputLine.className = `output-line ${type}`;
-    outputLine.textContent = text;
+    outputLine.innerHTML = text;
     terminalOutput.appendChild(outputLine);
     terminalOutput.scrollTop = terminalOutput.scrollHeight;
     updateTerminalCentering();
@@ -252,7 +250,6 @@ function processCommand(command, tabName) {
     const terminalOutput = document.getElementById(`terminal-output-${tabName}`);
     if (terminalOutput) {
       terminalOutput.innerHTML = '';
-      updateTerminalCentering();
     }
     // Reset password and command state BEFORE creating new input line
     terminalStates[tabName].isWaitingForPassword = false;
@@ -260,17 +257,19 @@ function processCommand(command, tabName) {
     // Immediately create a new input line after clear (always normal prompt)
     createInputLine(true); // pass true to force normal prompt
     return; // Prevent further output after clear
+  } else if (lowerCommand === 'cat resume/experience.txt' || lowerCommand === 'cat experience.txt') {
+    // Display experience content from external file
+    addOutputLine(formatExperienceContent(), 'normal', tabName);
   } else if (lowerCommand === 'cat resume/education.txt' || lowerCommand === 'cat education.txt') {
     // Display education content from external file
     addOutputLine(formatEducationContent(), 'normal', tabName);
-  } else if (lowerCommand === 'cat about.txt' || lowerCommand === 'cat resume/about.txt') {
-    // Display about content from external file
-    const about = terminalContent.about;
-    addOutputLine(`${about.asciiArt}\n\n${about.welcome}`, 'normal', tabName);
-  } else if (lowerCommand === 'cat projects.txt' || lowerCommand === 'cat resume/projects.txt') {
+  } else if (lowerCommand === 'cat resume/skills.txt' || lowerCommand === 'cat skills.txt') {
+    // Display skills content from external file
+    addOutputLine(formatSkillsContent(), 'normal', tabName);
+  } else if (lowerCommand === 'cat resume/projects.txt' || lowerCommand === 'cat projects.txt') {
     // Display projects content from external file
     addOutputLine(formatProjectsContent(), 'normal', tabName);
-  } else if (lowerCommand === 'cat contact.txt' || lowerCommand === 'cat resume/contact.txt') {
+  } else if (lowerCommand === 'cat resume/contact.txt' || lowerCommand === 'cat contact.txt') {
     // Display contact content from external file
     addOutputLine(formatContactContent(), 'normal', tabName);
   } else if (command.trim() !== '') {
@@ -324,10 +323,12 @@ function commandNeedsPassword(command) {
          lowerCommand.startsWith('ls ') || 
          lowerCommand === 'ls' ||
          (lowerCommand.startsWith('cat ') && 
+          !lowerCommand.includes('resume/experience.txt') && 
+          !lowerCommand.includes('experience.txt') &&
           !lowerCommand.includes('resume/education.txt') && 
           !lowerCommand.includes('education.txt') &&
-          !lowerCommand.includes('resume/about.txt') &&
-          !lowerCommand.includes('about.txt') &&
+          !lowerCommand.includes('resume/skills.txt') && 
+          !lowerCommand.includes('skills.txt') &&
           !lowerCommand.includes('resume/projects.txt') &&
           !lowerCommand.includes('projects.txt') &&
           !lowerCommand.includes('resume/contact.txt') &&
@@ -410,6 +411,8 @@ function createInputLine(forceNormalPrompt) {
   // Handle Enter key press
   terminalInput.addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
+      if (isTyping) return; // Prevent Enter during typewriter effect
+      
       const input = this.value.trim();
       this.value = '';
       handleCommandInput(input, 'about');
@@ -418,6 +421,8 @@ function createInputLine(forceNormalPrompt) {
 
   // Handle arrow keys for command history
   terminalInput.addEventListener('keydown', function(e) {
+    if (isTyping) return; // Prevent arrow keys during typewriter effect
+    
     if (e.key === 'ArrowUp') {
       e.preventDefault();
       navigateHistory('up', 'about');
@@ -429,6 +434,8 @@ function createInputLine(forceNormalPrompt) {
 
   // Save current input for history navigation
   terminalInput.addEventListener('input', function(e) {
+    if (isTyping) return; // Prevent input during typewriter effect
+    
     terminalStates['about'].currentInput = this.value;
     updateBlockCursor(this, 'about');
   });
@@ -439,4 +446,7 @@ function createInputLine(forceNormalPrompt) {
   terminalInput.addEventListener('keyup', function() {
     updateBlockCursor(this, 'about');
   });
+
+  // Update centering after creating the input line
+  updateTerminalCentering();
 }

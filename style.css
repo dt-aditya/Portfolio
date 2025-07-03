@@ -44,6 +44,7 @@ body {
 .right-panel {
   width: 65%;
   height: 80vh;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -54,6 +55,7 @@ body {
 .terminal {
   width: 100%;
   height: 100%;
+  min-height: 0;
   margin: 2rem 0;
   border: none;
   border-radius: 0;
@@ -61,6 +63,7 @@ body {
   background: none;
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
 
 .tabs {
@@ -105,26 +108,86 @@ body {
 
 /* Interactive terminal styling */
 .terminal-output {
-  margin: 0;
-  padding: 1.5rem 1.5rem 0.5rem 1.5rem;
-  font-family: 'JetBrains Mono', 'Fira Mono', 'Menlo', 'monospace';
-  white-space: pre-wrap;
-  line-height: 1.2;
-  height: 100%;
-  max-height: 100%;
+  min-height: 300px;
+  max-height: 70vh;
+  height: auto;
+  min-height: 0;
   background: transparent;
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  padding-bottom: 2rem;
   overflow-y: auto;
   transition: justify-content 0.2s;
   color: #e6f2ea;
-  font-size: 0.95rem;
+  font-size: 1.05rem;
 }
+
 .terminal-output.centered {
-  justify-content: center;
-  overflow-y: hidden;
+  justify-content: center !important;
+  align-items: flex-start !important;
+  flex: 1 1 0;
+  height: 100%;
+}
+
+.terminal-output.centered .terminal-input-line {
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 0;
+}
+
+.terminal-section-title {
+  color: #4ecb8f;
+  font-weight: bold;
+  font-size: 1.15rem;
+  letter-spacing: 1px;
+  margin-bottom: 0.7em;
+  display: block;
+}
+
+.terminal-company {
+  color: #a8ffb4;
+  font-weight: bold;
+  font-size: 1.05rem;
+  margin-top: 1.2em;
+  display: block;
+}
+
+.terminal-label {
+  color: #bfc9db;
+  font-weight: 600;
+  margin-right: 0.3em;
+}
+
+.terminal-entry {
+  margin-bottom: 1.2em;
+  padding-left: 1.5em;
+  border-left: 2px solid #4ecb8f22;
+}
+
+.terminal-description {
+  color: #e6f2ea;
+  margin-top: 0.2em;
+  margin-bottom: 0.5em;
+  padding-left: 0.5em;
+}
+
+.terminal-skills-list {
+  color: #a8ffb4;
+  margin-bottom: 0.7em;
+  padding-left: 1.5em;
+}
+
+.terminal-contact-label {
+  color: #4ecb8f;
+  font-weight: 600;
+  margin-right: 0.5em;
+}
+
+.terminal-contact-value {
+  color: #e6f2ea;
+  font-weight: 400;
 }
 
 .terminal-input-line {
