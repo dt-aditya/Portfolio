@@ -122,7 +122,7 @@ body {
   overflow-y: auto;
   transition: justify-content 0.2s;
   color: #e6f2ea;
-  font-size: 0.95rem;
+  font-size: 0.8rem !important;
 }
 
 .terminal-output.centered {
@@ -148,19 +148,21 @@ body {
 .terminal-section-title {
   color: #eaeaea;
   font-weight: bold;
-  font-size: 1.04rem;
+  font-size: 0.98rem;
   letter-spacing: 0.5px;
   margin-bottom: 0.7em;
   display: block;
+  font-size: 0.8rem !important;
 }
 
 .terminal-company {
   color: #e0e0e0;
   font-weight: bold;
-  font-size: 0.99rem;
+  font-size: 0.93rem;
   margin-top: 1em;
   margin-bottom: 0.1em;
   display: block;
+  font-size: 0.8rem !important;
 }
 
 .terminal-label {
@@ -168,6 +170,8 @@ body {
   font-weight: normal;
   margin-right: 0.2em;
   font-family: inherit;
+  font-size: 0.88rem;
+  font-size: 0.8rem !important;
 }
 
 .terminal-description {
@@ -177,6 +181,7 @@ body {
   padding-left: 0;
   font-family: inherit;
   font-size: 1.01rem;
+  font-size: 0.8rem !important;
 }
 
 .terminal-entry {
@@ -191,17 +196,20 @@ body {
   color: #a8ffb4;
   margin-bottom: 0.3em;
   padding-left: 0;
+  font-size: 0.8rem !important;
 }
 
 .terminal-contact-label {
   color: #4ecb8f;
   font-weight: normal;
   margin-right: 0.3em;
+  font-size: 0.8rem !important;
 }
 
 .terminal-contact-value {
   color: #e6f2ea;
   font-weight: 400;
+  font-size: 0.8rem !important;
 }
 
 .terminal-input-line {
@@ -219,6 +227,8 @@ body {
   margin-right: 0.5rem;
   font-weight: 700;
   letter-spacing: 0.01em;
+  flex-shrink: 0;
+  min-width: 0;
 }
 
 .terminal-input {
@@ -229,7 +239,7 @@ body {
   border: none;
   color: #a8ffb4;
   font-family: inherit;
-  font-size: inherit;
+  font-size: 0.88rem !important;
   outline: none;
   caret-color: #4ecb8f;
   line-height: 1.2;
@@ -282,7 +292,7 @@ body {
   white-space: pre-wrap;
   line-height: 1.2;
   color: #c7d0d9;
-  font-size: 0.95rem;
+  font-size: 0.8rem !important;
 }
 
 .output-line.error {
@@ -304,7 +314,7 @@ body {
 }
 
 .name {
-  font-size: 2.7rem;
+  font-size: 2.1rem;
   font-weight: 800;
   display: block;
   margin: 0 !important;
@@ -314,7 +324,7 @@ body {
 }
 
 .subtitle {
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   font-weight: 500;
   display: block;
   margin: 0 !important;
@@ -326,7 +336,7 @@ body {
 }
 
 .description {
-  font-size: 1.05rem;
+  font-size: 0.92rem;
   color: #8b98b1;
   margin-bottom: 2.2rem;
   max-width: 90%;
@@ -411,5 +421,5 @@ body {
 
 .terminal-output,
 .output-line {
-  font-size: 0.95rem;
+  font-size: 0.8rem !important;
 }

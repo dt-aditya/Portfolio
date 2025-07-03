@@ -47,7 +47,7 @@ function typeCommand(command, tabName, callback) {
   }
   
   let currentIndex = 0;
-  const typeSpeed = 40; // milliseconds per character (faster typing)
+  const typeSpeed = 15; // milliseconds per character (faster typing)
   
   function typeNextChar() {
     if (currentIndex < command.length) {
@@ -401,7 +401,7 @@ function createInputLine(forceNormalPrompt) {
   const inputLine = document.createElement('div');
   inputLine.className = 'terminal-input-line';
   // If forceNormalPrompt is true, always show normal prompt
-  inputLine.innerHTML = '<span class="prompt">user@portfolio:~$</span> <input type="text" class="terminal-input" placeholder="Type a command. You can also type \'--help\' for a list of commands..." autocomplete="off">';
+  inputLine.innerHTML = '<span class="prompt">user@portfolio:~$</span> <input type="text" class="terminal-input" placeholder="Type a command. Try \'--help\' for a list of commands..." autocomplete="off">';
   terminalOutput.appendChild(inputLine);
 
   const terminalInput = inputLine.querySelector('.terminal-input');
