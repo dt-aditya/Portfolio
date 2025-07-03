@@ -112,16 +112,16 @@ const terminalContent = {
 // Helper function to format experience content
 function formatExperienceContent() {
   const exp = terminalContent.experience;
-  let content = `<span class="terminal-section-title">${exp.title}</span>\n`;
+  let content = `<br><span class="terminal-section-title">Work Experience</span>`;
   
   exp.items.forEach((item, index) => {
-    content += `<span class="terminal-company">${index + 1}. ${item.company}</span>\n`;
+    content += `<span class="terminal-company">${index + 1}. ${item.company}</span>`;
     content += `<div class="terminal-entry">`;
-    content += `<span class="terminal-label">Position:</span> ${item.position}<br/>`;
-    content += `<span class="terminal-label">Duration:</span> ${item.duration}<br/>`;
-    content += `<span class="terminal-label">Location:</span> ${item.location}<br/>`;
+    content += `<span class="terminal-label">Position:</span> ${item.position}<br>`;
+    content += `<span class="terminal-label">Duration:</span> ${item.duration}<br>`;
+    content += `<span class="terminal-label">Location:</span> ${item.location}<br>`;
     content += `<div class="terminal-description">${item.description}</div>`;
-    content += `</div>\n`;
+    content += `</div>`;
   });
   
   return content;
@@ -130,30 +130,30 @@ function formatExperienceContent() {
 // Helper function to format education content
 function formatEducationContent() {
   const edu = terminalContent.education;
-  let content = `<span class="terminal-section-title">Education</span>\n`;
-  content += `<span class="terminal-company">${edu.masters.school}</span>\n`;
+  let content = `<br><span class="terminal-section-title">Education</span>`;
+  content += `<span class="terminal-company">${edu.masters.school}</span>`;
   content += `<div class="terminal-entry">`;
-  content += `<span class="terminal-label">Degree:</span> ${edu.masters.degree}<br/>`;
-  content += `<span class="terminal-label">Location:</span> ${edu.masters.location}<br/>`;
-  content += `<span class="terminal-label">Duration:</span> ${edu.masters.duration}<br/>`;
+  content += `<span class="terminal-label">Degree:</span> ${edu.masters.degree}<br>`;
+  content += `<span class="terminal-label">Location:</span> ${edu.masters.location}<br>`;
+  content += `<span class="terminal-label">Duration:</span> ${edu.masters.duration}<br>`;
   content += `<span class="terminal-label">Coursework:</span> ${edu.masters.coursework}`;
-  content += `</div>\n`;
-  content += `<span class="terminal-company">${edu.bachelors.school}</span>\n`;
+  content += `</div>`;
+  content += `<span class="terminal-company">${edu.bachelors.school}</span>`;
   content += `<div class="terminal-entry">`;
-  content += `<span class="terminal-label">Degree:</span> ${edu.bachelors.degree}<br/>`;
-  content += `<span class="terminal-label">Location:</span> ${edu.bachelors.location}<br/>`;
-  content += `<span class="terminal-label">Duration:</span> ${edu.bachelors.duration}<br/>`;
+  content += `<span class="terminal-label">Degree:</span> ${edu.bachelors.degree}<br>`;
+  content += `<span class="terminal-label">Location:</span> ${edu.bachelors.location}<br>`;
+  content += `<span class="terminal-label">Duration:</span> ${edu.bachelors.duration}<br>`;
   content += `<span class="terminal-label">Coursework:</span> ${edu.bachelors.coursework}`;
-  content += `</div>\n`;
+  content += `</div>`;
   return content;
 }
 
 // Helper function to format skills content
 function formatSkillsContent() {
   const skills = terminalContent.skills;
-  let content = `<span class="terminal-section-title">${skills.title}</span>\n`;
+  let content = `<br><span class="terminal-section-title">${skills.title}</span>`;
   skills.categories.forEach(category => {
-    content += `<span class="terminal-label">${category.name}:</span> <span class="terminal-skills-list">${category.skills.join(', ')}</span>\n`;
+    content += `<span class="terminal-label">${category.name}:</span> <span class="terminal-skills-list">${category.skills.join(', ')}</span><br>`;
   });
   return content;
 }
@@ -174,9 +174,9 @@ function formatProjectsContent() {
 // Helper function to format contact content
 function formatContactContent() {
   const cont = terminalContent.contact;
-  let content = `<span class="terminal-section-title">${cont.title}</span>\n`;
+  let content = `<br><span class="terminal-section-title">${cont.title}</span>`;
   cont.items.forEach(item => {
-    content += `<span class="terminal-contact-label">${item.label}:</span> <span class="terminal-contact-value">${item.value}</span>\n`;
+    content += `<span class="terminal-contact-label">${item.label}:</span> <span class="terminal-contact-value">${item.value}</span><br>`;
   });
   return content;
 } 

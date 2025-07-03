@@ -47,7 +47,7 @@ function typeCommand(command, tabName, callback) {
   }
   
   let currentIndex = 0;
-  const typeSpeed = 25; // milliseconds per character (faster typing)
+  const typeSpeed = 40; // milliseconds per character (faster typing)
   
   function typeNextChar() {
     if (currentIndex < command.length) {
@@ -222,7 +222,9 @@ function addOutputLine(text, type, tabName) {
     outputLine.className = `output-line ${type}`;
     outputLine.innerHTML = text;
     terminalOutput.appendChild(outputLine);
-    terminalOutput.scrollTop = terminalOutput.scrollHeight;
+    setTimeout(() => {
+      terminalOutput.scrollTop = terminalOutput.scrollHeight;
+    }, 0);
     updateTerminalCentering();
   }
 }
@@ -238,7 +240,9 @@ function addUserInputLine(prompt, inputValue, tabName) {
       inputLine.innerHTML = `<span class="prompt">${prompt}</span>`;
     }
     terminalOutput.appendChild(inputLine);
-    terminalOutput.scrollTop = terminalOutput.scrollHeight;
+    setTimeout(() => {
+      terminalOutput.scrollTop = terminalOutput.scrollHeight;
+    }, 0);
     updateTerminalCentering();
   }
 }
@@ -397,7 +401,7 @@ function createInputLine(forceNormalPrompt) {
   const inputLine = document.createElement('div');
   inputLine.className = 'terminal-input-line';
   // If forceNormalPrompt is true, always show normal prompt
-  inputLine.innerHTML = '<span class="prompt">user@portfolio:~$</span> <input type="text" class="terminal-input" placeholder="Type a command..." autocomplete="off">';
+  inputLine.innerHTML = '<span class="prompt">user@portfolio:~$</span> <input type="text" class="terminal-input" placeholder="Type a command. You can also type \'--help\' for a list of commands..." autocomplete="off">';
   terminalOutput.appendChild(inputLine);
 
   const terminalInput = inputLine.querySelector('.terminal-input');
